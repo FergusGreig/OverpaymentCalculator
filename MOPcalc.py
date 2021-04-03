@@ -1,20 +1,28 @@
 import currentdetails
 
-mortVal = [0,0]
-mortVal.pop()
-mortVal[0] =currentdetails.mortValue
+mortVal = [currentdetails.mortValue]
 intSum = 0
+mortRem = mortVal[0]
+months = 0
+years = 0
 
-years = range(0,currentdetails.mortTerm,1)
-for n in years:
-    intPaid = mortVal[n]*(currentdetails.mortInt/100)
-    mortPaid = 12*currentdetails.mortPaym - intPaid
-    mortVal.append( mortVal[n]-mortPaid)
-    intSum += intPaid
+while (mortRem >= 0):
+    intAnnual = mortRem*(currentdetails.mortInt/100)
+    intMonth = intAnnual/12
+    mortPaid = currentdetails.mortPaym - intMonth
+    mortRem -= mortPaid
+    intSum += intMonth
+    months += 1
+    if (months == 12):
+        months = 0
+        years += 1
+        mortVal.append(mortRem)
+    
 
 
 def showResult():
-    print(intSum)
+    print("Total Interest paid = £"+ str(intSum))
+    print("Time taken = "+ str(years)+" years and " + str(months)+" months.")
     for n in mortVal:
         print(n)
 

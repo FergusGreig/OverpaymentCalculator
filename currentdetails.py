@@ -3,7 +3,7 @@
 mortValue = 194000 
 mortInt = 1.5
 mortTerm = 35
-mortPaym = 597
+mortPaym = 596
 
 def displayNums():
     print("This calculation was computed using: ")

@@ -1,8 +1,19 @@
 import currentdetails
 
-mortVal = [currentdetails.mortValue]
+def compInt(payment, time , rate):
+    total = 0
+    profit = 0
+    months = 0
+    while (months < time):
+        months+=1
+        interest = total*rate/12
+        total+=payment + interest
+        profit += interest
+    return [total, profit]
+
 
 def mortgageCount(payments):
+    mortVal = [currentdetails.mortValue]
     intSum = 0
     mortRem = mortVal[0]
     months = 0
@@ -22,12 +33,20 @@ def mortgageCount(payments):
     return [years,months, intSum]
 
 def showResult(overpayment=0):
-    time = mortgageCount(currentdetails.mortPaym + overpayment)
-    print("For an overpayment of £" + str(overpayment))
-    print("The total interest paid is £"+ str(time[2]))
-    print("The time taken is "+ str(time[0])+" years and " + str(time[1])+" months.")
+    results = mortgageCount(currentdetails.mortPaym + overpayment)
+    savings = compInt(overpayment,currentdetails.mortTerm*12,0.01)
+    print("For a monthly overpayment of £" + str(overpayment))
+    print("The total interest paid is £"+ str(results[2]))
+    print("The time taken to pay off the debt is "+ str(results[0])+" years and " + str(results[1])+" months.")
+    print("""A savings account at 1% interest over 35 years would yeild £""" +str(savings[1]))
 #    for n in mortVal:
 #        print(n)
 
+def overpayLoop():
+    currentdetails.displayNums()
+    for x in range(0,2500,500):
+        showResult(x)
+
+
 if(__name__ == '__main__'):
-    showResult()
+    overpayLoop()
